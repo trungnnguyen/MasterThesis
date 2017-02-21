@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="gui.MainWindowDialog">
-  <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="30" vgap="10">
+  <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
     <margin top="20" left="20" bottom="20" right="20"/>
     <constraints>
-      <xy x="48" y="54" width="697" height="289"/>
+      <xy x="48" y="54" width="842" height="289"/>
     </constraints>
     <properties>
       <minimumSize width="349" height="200"/>
     </properties>
     <border type="none"/>
     <children>
-      <grid id="e3588" layout-manager="GridLayoutManager" row-count="3" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="e3588" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -18,35 +18,9 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="338c9" class="javax.swing.JTextField" binding="txtPath">
-            <constraints>
-              <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties>
-              <text value="c:/SIMULIA/Abaqus/Commands/abaqus.bat"/>
-            </properties>
-          </component>
-          <component id="3b9c8" class="javax.swing.JButton" binding="runCAE">
-            <constraints>
-              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Run CAE "/>
-            </properties>
-          </component>
-          <component id="e006" class="javax.swing.JCheckBox" binding="withScriptCheckBox" default-binding="true">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="With Script"/>
-            </properties>
-          </component>
           <component id="10e53" class="javax.swing.JButton" binding="chooseScriptFileButton" default-binding="true">
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Choose script file and Run CAE"/>
@@ -54,7 +28,7 @@
           </component>
           <component id="aaa40" class="javax.swing.JButton" binding="writeYourScriptButton" default-binding="true">
             <constraints>
-              <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Run CAE with written script"/>
@@ -62,7 +36,7 @@
           </component>
           <component id="458b8" class="javax.swing.JRadioButton" binding="chooseScriptFileRB">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Choose script from file"/>
@@ -70,18 +44,26 @@
           </component>
           <component id="2714f" class="javax.swing.JRadioButton" binding="writeScriptRB">
             <constraints>
-              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Write your script"/>
             </properties>
           </component>
-          <component id="4fc92" class="javax.swing.JLabel" binding="lblPath">
+          <component id="e006" class="javax.swing.JCheckBox" binding="withScriptCheckBox" default-binding="true">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Path to abaqus.bat: "/>
+              <text value="With Script"/>
+            </properties>
+          </component>
+          <component id="3b9c8" class="javax.swing.JButton" binding="runCAE">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Run CAE "/>
             </properties>
           </component>
         </children>
@@ -94,6 +76,14 @@
         </constraints>
         <properties>
           <text value=""/>
+        </properties>
+      </component>
+      <component id="5a585" class="javax.swing.JButton" binding="creatorButton">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Go to creator"/>
         </properties>
       </component>
     </children>

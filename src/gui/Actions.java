@@ -1,15 +1,17 @@
 package gui;
 
+import commands.Commands;
 import logic.CmdOperations;
+import sun.applet.Main;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 
 /**
@@ -17,13 +19,31 @@ import java.io.IOException;
  */
 public class Actions {
     private static final String resourcesPath = "E:\\github\\MasterThesis-Designer";
-    private static final Dimension windowSize = new Dimension(MainWindowDialog.getWIDTH(), MainWindowDialog.getHEIGHT());
+    private static final String modelPath = "C:/IdeaProjects/MasterThesis-Designer/resources/test.cae";
+    private static final Dimension windowSize = new Dimension(MainWindowDialog.getWIDTH()+20, MainWindowDialog.getHEIGHT()+20);
     private static final Dimension increasedWindowSize = new Dimension(MainWindowDialog.getWIDTH(), MainWindowDialog.getHEIGHT() + 100);
 
-    public static ActionListener startCAEAction() {
+    public static ActionListener startCae() {
         return e -> {
             try {
                 CmdOperations.startCAE();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        };
+    }
+
+    public static ActionListener saveStartCaeWithScript(File script) {
+        return e -> {
+            try {
+                String scriptPath = script.getAbsolutePath();
+                //delete existing model
+                if(Files.exists(Paths.get(resourcesPath)))
+                    Files.delete(Paths.get(resourcesPath));
+
+                String text = "mdb.saveAs(pathName='C:/IdeaProjects/MasterThesis-Designer/resources/test')";
+                Files.write(Paths.get(scriptPath), text.getBytes(), StandardOpenOption.APPEND);
+                CmdOperations.startCAEWithScript(script);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -38,17 +58,17 @@ public class Actions {
         };
     }
 
-    public static ActionListener startCAEWithScriptAction(MainWindowDialog mainWindow) {
+    public static ActionListener startCaeWithChoosenScriptAction(MainWindowDialog mainWindow) {
         return new ActionListener() {
             JFileChooser jfc = new JFileChooser();
-            String pathToScript = null;
+            File pathToScript = null;
 
             public void actionPerformed(ActionEvent event) {
                 jfc.setCurrentDirectory(new File(resourcesPath));
                 int returnVal = jfc.showDialog(mainWindow.getContentPane(), "Choose");
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     System.out.println(jfc.getSelectedFile().getAbsolutePath());
-                    pathToScript = jfc.getSelectedFile().getAbsolutePath();
+                    pathToScript = jfc.getSelectedFile();
                 }
                 try {
                     CmdOperations.startCAEWithScript(pathToScript);
@@ -86,14 +106,37 @@ public class Actions {
         };
     }
 
-    public static ActionListener runWrittenScript(JTextArea scriptText, String pathToCAE) {
+    public static ActionListener runWrittenScript(String scriptContent) {
         return e -> {
             try {
                 File script = new File("tmpScript.py");
                 BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(script));
-                bufferedWriter.append(scriptText.getText());
+                bufferedWriter.append(scriptContent);
                 bufferedWriter.flush();
-                CmdOperations.startCAEWithScript(script.getAbsolutePath());
+                CmdOperations.startCAEWithScript(script);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        };
+    }
+
+    public static ActionListener goToCreator(JButton creatorButton) {
+        return e-> {
+
+            MainWindowDialog.getInstance().setVisible(false);
+
+            JDialog dialog = CreatorDialog.getInstance();
+            dialog.setModal(true);
+            dialog.pack();
+            dialog.setVisible(true);
+
+        };
+    }
+
+    public static ActionListener appendScript(File script, String command) {
+        return e -> {
+            try {
+                Files.write(Paths.get(script.getPath()), command.getBytes(), StandardOpenOption.APPEND);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

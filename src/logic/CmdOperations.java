@@ -2,6 +2,7 @@ package logic;
 
 import gui.MainWindowDialog;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -10,24 +11,29 @@ import java.io.IOException;
 public class CmdOperations {
     static Runtime runtime;
 
-    private final static String CAE = " cae";
-    private final static String startCAEWithScript = "c:\\SIMULIA\\Abaqus\\Commands\\abaqus.bat cae script=";
+    private final static String cae = "c:\\SIMULIA\\Abaqus\\Commands\\abaqus.bat cae";
+    private final static String caeNoGui = "c:\\SIMULIA\\Abaqus\\Commands\\abaqus.bat cae";
+    private final static String startCaeWithScript = "c:\\SIMULIA\\Abaqus\\Commands\\abaqus.bat cae script=";
 
-    public static void startCAEWithScript(String pathToScript) throws IOException {
+    public static void startCAEWithScript(File script) throws IOException {
         StringBuilder command = new StringBuilder();
-        command.append(startCAEWithScript);
-        command.append(pathToScript);
+        command.append(startCaeWithScript);
+        command.append(script.getAbsolutePath());
         System.out.println(command);
         Runtime.getRuntime().exec(command.toString());
     }
 
     public static void startCAE() throws IOException {
         MainWindowDialog mainWindowDialog = MainWindowDialog.getInstance();
-        String path = mainWindowDialog.getTxtPath();
-        Runtime.getRuntime().exec(path + CAE);
+        Runtime.getRuntime().exec(cae);
     }
 
     public static void startCMD() throws IOException {
         Runtime.getRuntime().exec("cmd.exe /c start");
+    }
+
+    public static void startCaeNoGui() throws IOException {
+        MainWindowDialog mainWindowDialog = MainWindowDialog.getInstance();
+        Runtime.getRuntime().exec(caeNoGui);
     }
 }
