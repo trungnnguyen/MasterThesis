@@ -11,9 +11,9 @@ import java.io.IOException;
 public class CmdOperations {
     static Runtime runtime;
 
-    private final static String cae = "c:\\SIMULIA\\Abaqus\\Commands\\abaqus.bat cae";
-    private final static String caeNoGui = "c:\\SIMULIA\\Abaqus\\Commands\\abaqus.bat cae";
-    private final static String startCaeWithScript = "c:\\SIMULIA\\Abaqus\\Commands\\abaqus.bat cae script=";
+    private final static String cae = "c:\\SIMULIA2\\Abaqus\\Commands\\abaqus.bat cae";
+    private final static String caeNoGui = "c:\\SIMULIA2\\Abaqus\\Commands\\abaqus.bat cae";
+    private final static String startCaeWithScript = "c:\\SIMULIA2\\Abaqus\\Commands\\abaqus.bat cae script=";
 
     public static void startCAEWithScript(File script) throws IOException {
         StringBuilder command = new StringBuilder();

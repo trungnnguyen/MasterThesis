@@ -13,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+import static commands.Commands.*;
+
 
 /**
  * Created by Filip on 2016-09-18.
@@ -20,7 +22,7 @@ import java.nio.file.StandardOpenOption;
 public class Actions {
     private static final String resourcesPath = "E:\\github\\MasterThesis-Designer";
     private static final String modelPath = "C:/IdeaProjects/MasterThesis-Designer/resources/test.cae";
-    private static final Dimension windowSize = new Dimension(MainWindowDialog.getWIDTH()+20, MainWindowDialog.getHEIGHT()+20);
+    private static final Dimension windowSize = new Dimension(MainWindowDialog.getWIDTH() + 20, MainWindowDialog.getHEIGHT() + 20);
     private static final Dimension increasedWindowSize = new Dimension(MainWindowDialog.getWIDTH(), MainWindowDialog.getHEIGHT() + 100);
 
     public static ActionListener startCae() {
@@ -38,11 +40,10 @@ public class Actions {
             try {
                 String scriptPath = script.getAbsolutePath();
                 //delete existing model
-                if(Files.exists(Paths.get(resourcesPath)))
+                if (Files.exists(Paths.get(resourcesPath)))
                     Files.delete(Paths.get(resourcesPath));
 
-                String text = "mdb.saveAs(pathName='C:/IdeaProjects/MasterThesis-Designer/resources/test')";
-                Files.write(Paths.get(scriptPath), text.getBytes(), StandardOpenOption.APPEND);
+                Files.write(Paths.get(scriptPath), Commands.getSave().getBytes(), StandardOpenOption.APPEND);
                 CmdOperations.startCAEWithScript(script);
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -84,23 +85,23 @@ public class Actions {
     }
 
     public static ActionListener chooseWriteScript(JButton chooseScriptFileButton, JButton writeYourScriptButton, JTextArea scriptArea) {
-       return e -> {
-           MainWindowDialog mainWindow = MainWindowDialog.getInstance();
-           chooseScriptFileButton.setEnabled(false);
-           writeYourScriptButton.setEnabled(true);
-           scriptArea.setVisible(true);
+        return e -> {
+            MainWindowDialog mainWindow = MainWindowDialog.getInstance();
+            chooseScriptFileButton.setEnabled(false);
+            writeYourScriptButton.setEnabled(true);
+            scriptArea.setVisible(true);
 
-           MainWindowDialog.getInstance().setSize(increasedWindowSize);
-       };
+            MainWindowDialog.getInstance().setSize(increasedWindowSize);
+        };
     }
 
     public static ActionListener chooseScriptFromFile(JButton chooseScriptFileButton, JButton writeYourScriptButton, JTextArea scriptArea) {
         return e -> {
             MainWindowDialog mainWindow = MainWindowDialog.getInstance();
-           // if(mainWindow.getWriteScriptRB().isSelected()) {
-                scriptArea.setVisible(false);
-                mainWindow.setSize(windowSize);
-           // }
+            // if(mainWindow.getWriteScriptRB().isSelected()) {
+            scriptArea.setVisible(false);
+            mainWindow.setSize(windowSize);
+            // }
             chooseScriptFileButton.setEnabled(true);
             writeYourScriptButton.setEnabled(false);
         };
@@ -121,7 +122,7 @@ public class Actions {
     }
 
     public static ActionListener goToCreator(JButton creatorButton) {
-        return e-> {
+        return e -> {
 
             MainWindowDialog.getInstance().setVisible(false);
 
@@ -141,5 +142,16 @@ public class Actions {
                 e1.printStackTrace();
             }
         };
+    }
+
+    public static ActionListener addDefaults(File script) {
+        String command = getCreateSection() + getAssignSection()
+                + getCreateInstance() + getCreateStep() + getCreateTopDisplacement() + getCreateBottomFix() + getApplyMesh();
+        return appendScript(script, command);
+    }
+
+    public static ActionListener createSqueezeProcess(File script) {
+        String command = getCreateJob();
+        return appendScript(script, command);
     }
 }

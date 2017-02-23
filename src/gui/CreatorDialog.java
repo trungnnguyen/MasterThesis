@@ -4,7 +4,6 @@ import commands.Commands;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,11 +12,12 @@ import java.nio.file.StandardOpenOption;
 public class CreatorDialog extends JDialog {
     private JPanel contentPane;
     private JButton createPartButton;
-    private JButton addDefaultProcessButton;
+    private JButton createSqueezeProcess;
     private JButton runCAEButton;
-    private JButton addMeshButton;
-    private static final int HEIGHT = 180;
-    private static final int WIDTH = 800;
+    private JButton steelButton;
+    private JButton defaultsMeshInstancesAndButton;
+    private static final int HEIGHT = 500;
+    private static final int WIDTH = 500;
     private PrintWriter out;
 
     private static class MyWrapper {
@@ -32,7 +32,9 @@ public class CreatorDialog extends JDialog {
         File script = initializeScriptFile();
 
         createPartButton.addActionListener(Actions.appendScript(script, Commands.getCreateCube()));
-        addMeshButton.addActionListener(Actions.appendScript(script, Commands.getMesh()));
+        steelButton.addActionListener(Actions.appendScript(script, Commands.getCreateMaterialSteel()));
+        defaultsMeshInstancesAndButton.addActionListener(Actions.addDefaults(script));
+        createSqueezeProcess.addActionListener(Actions.createSqueezeProcess(script));
         runCAEButton.addActionListener(Actions.saveStartCaeWithScript(script));
 
     }
