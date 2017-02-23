@@ -1,8 +1,8 @@
 package gui;
 
-import commands.Commands;
+import commands.CommandsFactory;
+import commands.TubeCommands;
 import logic.CmdOperations;
-import sun.applet.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,8 +12,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-
-import static commands.Commands.*;
 
 
 /**
@@ -43,7 +41,7 @@ public class Actions {
                 if (Files.exists(Paths.get(resourcesPath)))
                     Files.delete(Paths.get(resourcesPath));
 
-                Files.write(Paths.get(scriptPath), Commands.getSave().getBytes(), StandardOpenOption.APPEND);
+                Files.write(Paths.get(scriptPath), CommandsFactory.getSave().getBytes(), StandardOpenOption.APPEND);
                 CmdOperations.startCAEWithScript(script);
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -144,14 +142,27 @@ public class Actions {
         };
     }
 
-    public static ActionListener addDefaults(File script) {
-        String command = getCreateSection() + getAssignSection()
-                + getCreateInstance() + getCreateStep() + getCreateTopDisplacement() + getCreateBottomFix() + getApplyMesh();
+    public static ActionListener createSqueezeProcess(File script) {
+        String command = CommandsFactory.getCreateStep() + CommandsFactory.getCreateBottomFix()
+                + CommandsFactory.getCreateTopDisplacement() + CommandsFactory.getApplyMesh() + CommandsFactory.getCreateJob();
         return appendScript(script, command);
     }
 
-    public static ActionListener createSqueezeProcess(File script) {
-        String command = getCreateJob();
+    public static ActionListener createExtentionProcess(File script) {
+        String command = CommandsFactory.getCreateStep() + CommandsFactory.getCreateBottomFix()
+                + CommandsFactory.getTopExtention() + CommandsFactory.getApplyMesh() + CommandsFactory.getCreateJob();
+        return appendScript(script, command);
+    }
+
+    public static ActionListener createSteel(File script) {
+        String command = CommandsFactory.getCreateSteel() + CommandsFactory.getCreateSteelSection() + CommandsFactory.getAssignSection()
+                + CommandsFactory.getCreateInstance();
+        return appendScript(script, command);
+    }
+
+    public static ActionListener createAluminium(File script) {
+        String command = CommandsFactory.getCreateAluminium() + CommandsFactory.getCreateAluminiumSection() + CommandsFactory.getAssignSection()
+                + CommandsFactory.getCreateInstance();
         return appendScript(script, command);
     }
 }

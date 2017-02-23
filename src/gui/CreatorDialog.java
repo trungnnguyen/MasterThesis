@@ -1,6 +1,8 @@
 package gui;
 
-import commands.Commands;
+import commands.CommandsFactory;
+import commands.CubeCommands;
+import commands.TubeCommands;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,10 +17,11 @@ public class CreatorDialog extends JDialog {
     private JButton createSqueezeProcess;
     private JButton runCAEButton;
     private JButton steelButton;
-    private JButton defaultsMeshInstancesAndButton;
+    private JButton tubeButton;
+    private JButton aluminiumButton;
+    private JButton extendButton;
     private static final int HEIGHT = 500;
     private static final int WIDTH = 500;
-    private PrintWriter out;
 
     private static class MyWrapper {
         static CreatorDialog INSTANCE = new CreatorDialog();
@@ -31,10 +34,15 @@ public class CreatorDialog extends JDialog {
 
         File script = initializeScriptFile();
 
-        createPartButton.addActionListener(Actions.appendScript(script, Commands.getCreateCube()));
-        steelButton.addActionListener(Actions.appendScript(script, Commands.getCreateMaterialSteel()));
-        defaultsMeshInstancesAndButton.addActionListener(Actions.addDefaults(script));
+        createPartButton.addActionListener(Actions.appendScript(script, CubeCommands.getCreateCube()));
+        steelButton.addActionListener(Actions.createSteel(script));
         createSqueezeProcess.addActionListener(Actions.createSqueezeProcess(script));
+
+        tubeButton.addActionListener(Actions.appendScript(script, TubeCommands.getCreateTube()));
+        aluminiumButton.addActionListener(Actions.createAluminium(script));
+        extendButton.addActionListener(Actions.createExtentionProcess(script));
+
+
         runCAEButton.addActionListener(Actions.saveStartCaeWithScript(script));
 
     }
@@ -52,7 +60,7 @@ public class CreatorDialog extends JDialog {
             } else {
                 new PrintWriter(script.getAbsolutePath()).close();
             }
-            Files.write(Paths.get(script.getPath()), Commands.getImports().getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get(script.getPath()), CommandsFactory.getImports().getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
